@@ -1,6 +1,7 @@
 // IMPORT STORE
 const store = require('./store');
 
+
 // RESPONSE
 const response = require('../../network/res/project/res');
 
@@ -46,7 +47,7 @@ const allProject = async ( req, res ) => {
 
 const getProject = async ( req, res ) => {
     try {
-        // Capture id params and the request body or run search method.
+        // Capture id params and run search method.
         const { id } = req.params;
         const project = await store.get( id );
 

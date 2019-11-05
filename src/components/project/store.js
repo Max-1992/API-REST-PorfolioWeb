@@ -4,15 +4,14 @@
 const Project = require('./model');
 
 
-// STORE DECLARATION
+// STORE METHODS DECLARATION
 
 const add = async ( projectData ) => {
     try {
-        // Save a new project to the database
+        // Save a new project in the database and return the data of the created project.
         const newProject = new Project(projectData);
         const project = await newProject.save();
 
-        // Return new project
         return project;
 
     } catch (err) {
@@ -61,7 +60,7 @@ const all = async ( searchProject, pages ) => {
 
 const get = async ( id ) => {
     try {
-        // Search project in the database by id.
+        // Search project in the database by id and return project found.
         const project = Project.findById(id);
 
         return project;
@@ -75,7 +74,7 @@ const get = async ( id ) => {
 
 const update = async ( id, updateProject ) => {
     try {
-        // Update project in the database by id.
+        // Update project in the database by id and return updated project.
         const project = await Project.findByIdAndUpdate( id, updateProject, { new: true });
     
         return project;
