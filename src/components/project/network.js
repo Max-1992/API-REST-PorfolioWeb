@@ -6,9 +6,15 @@ const { Router } = require('express');
 const router = Router();
 
 
+// IMPORT CONTROLLERS
+const controller = require('./controller');
+
+
 // ROUTES
-router.get('/', ( req, res ) => {
-    res.send(`enrutador andando`);
-});
+router.get('/', controller.allProject);
+router.get('/:id', controller.getProject);
+router.post('/', controller.addProject);
+router.put('/:id', controller.updateProject);
+router.delete('/:id', controller.deleteProject);
 
 module.exports = router;
