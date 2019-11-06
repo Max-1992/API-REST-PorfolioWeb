@@ -4,15 +4,16 @@ const path = require('path');
 
 // IMPORT SCHEMA
 const Project = require('../project/model');
+const User = require('../user/model');
 
 // STORE METHODS DECLARATION
 
 const add = async ( id,  collection, imageName ) => {
     try {
         // Validate the data collection and save the name of the image.
-        if( collection === 'user' ) {
+        if( collection === 'user' ) {   
             let user = await User.findById(id);
-
+        
             // Update the image property and save to database.
             user.image = imageName;
             user.save();
@@ -26,6 +27,7 @@ const add = async ( id,  collection, imageName ) => {
         project.save();
         return project;
     } catch (err) {
+        console.error(`[ERROR Add]: ${err}`);
         return Promise.reject(err);
     }
 
@@ -64,7 +66,9 @@ const update = async ( id,  collection, imageName ) => {
         project.image = imageName;
         project.save();
         return project;
+
     } catch (err) {
+        console.error(`[ERROR Update]: ${err}`);
         return Promise.reject(err);
     }
 };

@@ -56,8 +56,11 @@ const addImage = async ( req, res ) => {
         // Move files to the root directory
         await image.mv(`./uploads/${type}/${image.name}`);
 
+        // =============================================== OK
+
         // Update the database to add the image property.
         if( type === 'user' ){
+            
             const user = await store.add( id, type, image.name);
 
              // Validate if there is a Found Data.

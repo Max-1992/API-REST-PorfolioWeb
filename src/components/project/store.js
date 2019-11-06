@@ -2,6 +2,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
+
 // IMPORT SCHEMA
 const Project = require('./model');
 
@@ -23,14 +24,14 @@ const add = async ( projectData ) => {
 };
 
 
-const all = async ( searchProject, pages ) => {
+const all = async ( searchProject, pages, userId ) => {
     try {
         // Pagination.
         const itemPages = 9;
     
         // Validate if there is a search term and if not, return all paginated projects.
         if( !searchProject ) {
-            const projects = await Project.find({})
+            const projects = await Project.find({ user: userId })
                                             .skip( ( itemPages * pages ) - itemPages )
                                             .limit( itemPages )
                                             .sort( {"date": "desc"} )
@@ -42,11 +43,11 @@ const all = async ( searchProject, pages ) => {
         // Return the paginated projects that meet the search term.
         let regex = new RegExp( searchProject, 'i' );
     
-        const projects = await Project.find({ "category": regex })
-                                                                .skip( ( itemPages * pages ) - itemPages )
-                                                                .limit( itemPages )
-                                                                .sort({ "date": "desc" })
-                                                                .exec();
+        const projects = await Project.find({ "category": regex, user: userId })
+                                                                    .skip( ( itemPages * pages ) - itemPages )
+                                                                    .limit( itemPages )
+                                                                    .sort({ "date": "desc" })
+                                                                    .exec();
 
         return projects;
 
