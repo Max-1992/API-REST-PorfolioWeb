@@ -19,7 +19,7 @@ const ProjectSchema = new Schema({
     videoPath: {
         type: String,
     },
-    imagePath: {
+    image: {
         type: String
     },
     technologies: [

@@ -120,5 +120,5 @@ module.exports = {
     allProject,
     getProject,
     updateProject,
-    deleteProject
+    deleteProject,
 };

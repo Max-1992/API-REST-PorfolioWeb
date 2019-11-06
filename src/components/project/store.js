@@ -1,4 +1,6 @@
 // IMPORT OF MODULES
+const fs = require('fs-extra');
+const path = require('path');
 
 // IMPORT SCHEMA
 const Project = require('./model');
@@ -8,7 +10,7 @@ const Project = require('./model');
 
 const add = async ( projectData ) => {
     try {
-        // Save a new project in the database and return the data of the created project.
+        // Save a new project in the database and return the data of the created projec
         const newProject = new Project(projectData);
         const project = await newProject.save();
 
@@ -91,6 +93,15 @@ const remove = async ( id ) => {
     try {
         // Remove project from the database and return deleted project.
         const deleteProject = await Project.findByIdAndDelete(id);
+
+        // Remove project image from the system.
+        if( deleteProject.image ) {
+            let pathImage = path.resolve(__dirname, `../../../uploads/project/${deleteProject.image}`);
+
+            if( fs.existsSync(pathImage) ) {
+                fs.unlinkSync(pathImage);
+            }
+        }
 
         return deleteProject;
 
