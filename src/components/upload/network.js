@@ -10,9 +10,13 @@ const router = Router();
 const controller = require('./controller');
 
 
+// IMPORT MIDDLEWARES
+const { verifyToken } = require('../../middlewares/validToken');
+
+
 // ROUTES
-router.post('/upload/:type/:id', controller.addImage);
-router.put('/upload/:type/:id', controller.updateImage);
+router.post('/upload/:type/:id', verifyToken, controller.addImage);
+router.put('/upload/:type/:id', verifyToken, controller.updateImage);
 router.get('/:type/:image', controller.getImage);
 
 module.exports = router;

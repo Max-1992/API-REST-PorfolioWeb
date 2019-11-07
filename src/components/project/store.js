@@ -24,14 +24,14 @@ const add = async ( projectData ) => {
 };
 
 
-const all = async ( searchProject, pages, userId ) => {
+const all = async ( searchProject, pages ) => {
     try {
         // Pagination.
         const itemPages = 9;
     
         // Validate if there is a search term and if not, return all paginated projects.
         if( !searchProject ) {
-            const projects = await Project.find({ user: userId })
+            const projects = await Project.find({})
                                             .skip( ( itemPages * pages ) - itemPages )
                                             .limit( itemPages )
                                             .sort( {"date": "desc"} )
@@ -43,11 +43,11 @@ const all = async ( searchProject, pages, userId ) => {
         // Return the paginated projects that meet the search term.
         let regex = new RegExp( searchProject, 'i' );
     
-        const projects = await Project.find({ "category": regex, user: userId })
-                                                                    .skip( ( itemPages * pages ) - itemPages )
-                                                                    .limit( itemPages )
-                                                                    .sort({ "date": "desc" })
-                                                                    .exec();
+        const projects = await Project.find({ "category": regex })
+                                                                .skip( ( itemPages * pages ) - itemPages )
+                                                                .limit( itemPages )
+                                                                .sort({ "date": "desc" })
+                                                                .exec();
 
         return projects;
 
@@ -55,8 +55,6 @@ const all = async ( searchProject, pages, userId ) => {
         console.error(`[ERROR All]: ${err}`);
         return Promise.reject(err);
     }
-
-
 
 };
 

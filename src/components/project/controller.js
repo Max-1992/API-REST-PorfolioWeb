@@ -26,14 +26,13 @@ const addProject = async ( req, res ) => {
 
 const allProject = async ( req, res ) => {
     try {
-        // Capture query params and userID.
-        const { userId } = req.params;
+        // Capture query params.
         const searchProject = req.query.search;
         let page = req.query.page || 1;
         page = Number(page);
         
         // Run search method.
-        const projects = await store.all( searchProject, page, userId );
+        const projects = await store.all( searchProject, page );
         
         // Response success.
         return response.success(req, res, projects, 200);
