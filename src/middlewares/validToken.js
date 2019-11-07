@@ -8,7 +8,6 @@ const response = require('../network/res/auth/res');
 const verifyToken = (req, res, next) => {
     try {
         const token = req.header(`Authorization`);
-        console.log(token);
     
         if( !token ) {
             let err = `Access denied. You are not authorized to enter our application`;

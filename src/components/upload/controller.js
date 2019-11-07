@@ -79,6 +79,7 @@ const addImage = async ( req, res ) => {
 
             // Response success.
             return response.success(req, res, user, 201);
+            
         } else {
             const project = await store.add( id, type, image.name);
 
